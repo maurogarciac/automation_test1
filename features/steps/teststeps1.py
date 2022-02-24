@@ -34,8 +34,7 @@ def search_for(context, value):
 
 @Then('There are at least {number} links that result from it are saved')
 def save_links(context, number):
-    WebDriverWait(context.browser, timeout=PAGE_LOAD_TIMEOUT).until(presence_of_all_elements_located(
-        (By.CSS_SELECTOR, main_search_result_link)))  # puede ser una custom expected condition
+    WebDriverWait(context.browser, timeout=PAGE_LOAD_TIMEOUT).until(presence_of_all_elements_located(By.CSS_SELECTOR, main_search_result_link))  # puede ser una custom expected condition
     # looking for the div that has a specific Class assigned
     result_anchors = context.browser.find_elements(
         By.CSS_SELECTOR, main_search_result_link)
