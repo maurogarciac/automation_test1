@@ -29,13 +29,11 @@ def search_for(context, value):
     search = context.browser.find_element(By.NAME, "q")
     search.send_keys(value)
     search.send_keys(Keys.RETURN)
-    # waiting at most 5 seconds for the div to load in the page
 
 
 @Then('There are at least {number} links that result from it are saved')
 def save_links(context, number):
     WebDriverWait(context.browser, timeout=PAGE_LOAD_TIMEOUT).until(presence_of_all_elements_located(By.CSS_SELECTOR, main_search_result_link))  # puede ser una custom expected condition
-    # looking for the div that has a specific Class assigned
     result_anchors = context.browser.find_elements(By.CSS_SELECTOR, main_search_result_link)
     links = [result.get_attribute('href') for result in result_anchors]
     with open('test.txt', 'a') as f:
