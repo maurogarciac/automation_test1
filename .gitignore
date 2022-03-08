@@ -2,6 +2,10 @@
 test.txt
 #virtualenv
 automation1/
+#vscode
+/.vscode/
+
+#################
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
