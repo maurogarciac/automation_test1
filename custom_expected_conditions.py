@@ -1,6 +1,7 @@
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
+
 def _element_if_visible(element, visibility=True):
     return element if element.is_displayed() == visibility else False
 

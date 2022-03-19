@@ -16,13 +16,16 @@ def launch_browser(context):
     # setting a timeout exception in case google doesn't load
     context.driver.set_page_load_timeout(10)
     context.driver.get('https://www.google.com')
+#   context.current_page = GoogleSearchHome(context.driver)
+
+#   look for the standards of naming conventions on python
 
 
 @When('I search for "{value}"')
 def search_for(context, value):
     # declaring the value of context.value so that it can be used in other functions
     context.value = value
-    # looking for value in the google input search box
+    # looking for value in the Google input search box
     search = context.driver.find_element(By.NAME, "q")
     search.send_keys(value)
     search.send_keys(Keys.RETURN)

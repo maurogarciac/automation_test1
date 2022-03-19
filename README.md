@@ -10,22 +10,26 @@
     git clone https://github.com/maurogarciac/automation_test1.git
     cd automation_test1
     ```
-1. Create a Virtual Environment named `automation1`:
+1. Install virtualenv
     ```shell
-    python -m virtualenv automation1
+    python -m pip install virtualenv 
     ```
-    * The name of the Environment has to be set to automation1 because it is already ignored by git.
+1. Create a Virtual Environment inside a folder named `venvs`:
+    ```shell
+    python -m virtualenv venvs/<your_venv_name>
+    ```
+    * The path of the Environments created has to be set to venvs because it is ignored by git.
 1. Activate the Environment:
     ```shell
-    activate.bat
+    venvs/<your_venv_name>/Scripts/activate
     ```
 1. Install the required Packages:
     ```shell
-    python -m pip install requirements.txt
+    python -m pip install -r requirements.txt
     ```
-2. Move your chosen WebDriver to the Scripts folder of your Virtual Environment.
+1. Move your chosen WebDriver.exe to the Scripts folder of your Virtual Environment.
    
-3. Run tests:
+1. Run tests:
     ```shell
     behave
     ```
