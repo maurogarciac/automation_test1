@@ -16,7 +16,7 @@ class GoogleSearchHomePage(PageFactory):
         self.driver = driver
 
     
-    def open(self):
+    def open_s(self):
         self.driver.get("https://www.google.com")
         
 

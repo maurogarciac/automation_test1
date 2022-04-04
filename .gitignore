@@ -1,5 +1,7 @@
 #other
+test.py
 /.txt
+screenshots/*
 #virtualenv
 venvs/*
 #vscode
