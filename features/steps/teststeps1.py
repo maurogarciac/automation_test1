@@ -1,6 +1,7 @@
+from behave import Given, Then, When
 from page_objects.GoogleSearchHomePage import GoogleSearchHomePage
-from behave import Given, When, Then
 from selenium.webdriver import Firefox
+
 
 @Given('Google search is loaded')
 def google_instance(context):
@@ -8,8 +9,7 @@ def google_instance(context):
     context.driver = driver
     context.currentpage = GoogleSearchHomePage(context.driver)
     context.currentpage.open_s()
-    driver.save_screenshot("screenshot.png")
-
+    
 
 @When('I search for "{value}"')
 def search_for(context, value):

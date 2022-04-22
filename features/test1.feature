@@ -1,4 +1,4 @@
-Feature: Fetching the links from a Google search
+Feature: Fetching links from a Google search
 
     Fetching links from google
 

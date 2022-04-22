@@ -1,35 +1,36 @@
-import os
 import datetime
-from pathlib import Path
+import os
 
-def save_picture(context, driver, b_a = 0):
-    before_after = ["only", "before", "after"]
-    itemorder = before_after[int(b_a)]
-    
+
+def make_screenshots_dir(context):
     #variable that declares the name of the new dir
+    #reemplazar espacios por underscores o algo parecido
     new_dir_name = f"{datetime.date.today()}-{datetime.datetime.now().hour}hs-{datetime.datetime.now().minute}mins-{context.feature.name}"
-    
-    #declare the parent directory
-    absolute_path = os.path.abspath(__file__)
-    project_directory = os.path.dirname(absolute_path)
-    screenshots_directory = os.path.join(project_directory, "screenshots")
+    #current working dir
+    cwd = os.getcwd()
+    screenshots_directory = os.path.join(cwd, "screenshots")
+    os.makedirs(screenshots_directory, exist_ok = True)
     new_path = os.path.join(screenshots_directory, new_dir_name)
     #check if directory exists, and create it if it doesn't
-    try:
-        Path(new_path).is_dir()
-    except FileNotFoundError:
-        os.mkdir(new_path)
+    candidate = new_path
+    created = False
+    i = 0
+    while not created:
+        try:
+            os.mkdir(candidate)
+            created = True
+        except:
+            i += 1
+            candidate = f"{new_path}_{i}"
+    return candidate
+
+
+def save_picture(context, before_after = ""):
     #now take the screenshot and save it in the new directory
-    driver.get_full_page_screenshot_as_png(f"{context.scenario.name} - {context.step.number} - {itemorder}-full",  f"{new_path}")
-    driver.save_screenshot(f"{context.scenario.name} - {context.step.number} - {itemorder}",  f"{new_path}")
-    """
-    for files in os.walk(screenshots_directory):
-        for file in files:
-            if file.__contains__(f"{context.scenario.name}-{context.step.number}-only.png"):
-                return before_after[1]
-            if file.__contains__(f"{context.scenario.name}-{context.step.number}-before.png"):
-                before_after = "after"
-            else:
-                #except there is no before and after in some instances, i.e. "Google Search Is Loaded"
-                before_after = "before"
-    """
+    if "driver" in context and context.driver is not None:
+        step_name = f"{context.step.line}"
+        if context.step.table is not None:
+            step_name = f"{step_name}_{context.step.table.iteration}"
+        screenshot_file_name_prefix = os.path.join(f"{context.current_screenshot_dir}", f"{context.scenario.name}-{context.step.line}-{before_after}")
+        context.driver.find_element_by_tag_name("body").screenshot(f"{screenshot_file_name_prefix}-full.png")
+        context.driver.save_screenshot(f"{screenshot_file_name_prefix}.png")

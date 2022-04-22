@@ -1,6 +1,6 @@
 import os
+import take_screenshots
 from behave import *
-from take_screenshots import save_picture
 
 
 def before_all(context):
@@ -9,16 +9,27 @@ def before_all(context):
         os.remove(context.output_filename)
     except FileNotFoundError:
         pass
+    
+
+def before_feature(context, feature):
+    context.feature = feature
+    context.current_screenshot_dir = take_screenshots.make_screenshots_dir(context)
+    
+
+def before_scenario(context, scenario):
+    context.scenario = scenario
 
 
 def before_step(context, step):
-    
-    save_picture(context, 1)
+    context.step = step
+    take_screenshots.save_picture(context, "before")
 
 
 def after_step(context, step):
-    save_picture(context, 2)
+    take_screenshots.save_picture(context, "after")
 
 
 def after_scenario(context, scenario):
     context.driver.quit()
+    del context.driver
+    
