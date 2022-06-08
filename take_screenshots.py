@@ -4,9 +4,7 @@ import os
 
 def make_screenshots_dir(context):
     #variable that declares the name of the new dir
-    #reemplazar espacios por underscores o algo parecido
     new_dir_name = f"{datetime.date.today()}-{datetime.datetime.now().hour}hs-{datetime.datetime.now().minute}mins-{context.feature.name}"
-    #current working dir
     cwd = os.getcwd()
     screenshots_directory = os.path.join(cwd, "screenshots")
     os.makedirs(screenshots_directory, exist_ok = True)
